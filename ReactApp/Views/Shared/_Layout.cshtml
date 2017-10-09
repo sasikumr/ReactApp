@@ -1,0 +1,172 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="format-detection" content="telephone=no">
+    <title>@ViewData["Title"] - AdvisorReactjsApp</title>
+    <base href="~/" />
+
+    <link rel="stylesheet" href="~/dist/vendor.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/dist/site.css" asp-append-version="true" />
+    @*<link href="~/ClientApp/css/customstyles-1.0.2.css" rel="stylesheet" />
+    <link href="~/ClientApp/css/mvc-grid.css" rel="stylesheet" />
+    <link href="~/ClientApp/css/offcanvas-1.0.1.css" rel="stylesheet" />*@
+    @*@if (Valic.AdvisorToolSuite.AppConstants.isAnalyticsEnabled)
+        {
+            if (Valic.AdvisorToolSuite.AppConstants.Environment == "production")
+            {
+                <script src="//assets.adobedtm.com/962196b0527148dcc7759117b07639e3d5c6fb98/satelliteLib-f52f4ed5134ed72a5f39a661b9cbde67757a131e.js"></script>
+            }
+            else
+            {*@
+    <script src="//assets.adobedtm.com/962196b0527148dcc7759117b07639e3d5c6fb98/satelliteLib-f52f4ed5134ed72a5f39a661b9cbde67757a131e-staging.js"></script>
+    @*}
+        }*@
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style>
+        #sideBarNavList a {
+            color: #ffffff;
+        }
+        .navbar-inverse{
+            background-color:blue !important;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-fixed-top navbar-inverse customnavbar" role="navigation">
+        
+    </nav><!-- /.navbar -->
+    <div class="subMenuBar" id="subMenuBar">
+        <div id="pageTitleDiv" class="col-xs-8 subMenuNav">Prospect Edit</div>
+        <div id="pageIconsDiv" class="col-xs-4"></div>
+
+        <!--Page Specific Content for 2nd Navbar loaded here-->
+    </div>
+    <div id="contentBodyContainer" style="-webkit-overflow-scrolling: touch">
+        <div class="row-offcanvas row-offcanvas-left">
+        
+
+            <div id="mainContent">
+                <div id="mainContentBox">
+                    @RenderBody()
+            </div>
+        </div><!--#mainContent-->
+    </div><!--/row-->
+</div>
+    <!-- This is the popup modal where you can display content,image,etc...  -->
+    <div id="modal-container" class="modal fade" tabindex="-1" role="dialog" style="z-index: 7000">
+        <div class="modal-content" style="border: 5px solid #3A87AD; overflow-y: auto; overflow-x: hidden; margin-left: auto; margin-right: auto; margin-top: 20%; ">
+            <span class="modal-close-btn" role="button" tabindex="0" style="background: no-repeat scroll 5px 0 rgba(0, 0, 0, 0);height: 31px; position: absolute;right: -13px;top: -1px;width: 42px;z-index: 500;cursor: pointer;"></span>
+            <div id="modalbody" class="modal-body">
+            </div>
+        </div>
+    </div>
+
+    <script src="~/dist/vendor.js" asp-append-version="true"></script>
+    @*<script src="~/ClientApp/scripts/valic.common.js"></script>
+    <script src="~/ClientApp/scripts/valic.jscroll.js"></script>
+    <script src="~/ClientApp/scripts/mvc-grid.js"></script>
+    <script src="~/ClientApp/scripts/ie-emulation-modes-warning.js"></script>
+    <script src="~/ClientApp/scripts/ie10-viewport-bug-workaround.js"></script>*@
+    @RenderSection("scripts", required: false)
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    @*code placed in inline <script src="~/Scripts/js/offcanvas.js" type="text/javascript"></script>*@
+    <script type="text/javascript">
+
+        (function () {
+            // Initialize numeric spinner input boxes
+            //$(".numeric-spinner").spinedit();
+
+            // Initalize modal dialog
+            // attach modal-container bootstrap attributes to links with .modal-link class.
+            // when a link is clicked with these attributes, bootstrap will display the href content in a modal dialog.
+            $('body').on('click', '.modal-link', function (e) {
+                e.preventDefault();
+                $(this).attr('data-target', '#modal-container');
+                $(this).attr('data-toggle', 'modal');
+            });
+
+            // Attach listener to .modal-close-btn's so that when the button is pressed the modal dialog disappears
+            $('body').on('click', '.modal-close-btn', function () {
+                $('#modal-container').modal('hide');
+            });
+
+            //clear modal cache, so that new content can be loaded
+            $('#modal-container').on('hidden.bs.modal', function () {
+                $(this).removeData('bs.modal');
+            });
+
+            $('#CancelModal').on('click', function () {
+                return false;
+            });
+            /*Code for offcanvas - start*/
+            $(document).ready(function () {
+                $('[data-toggle="offcanvas"]').click(function () {
+                    $('.row-offcanvas').toggleClass('active')
+                });
+            });
+            /*Code for offcanvas - end*/
+            $(document).ready(function () {
+        @*var userAuthorized = @Request.IsAuthenticated.ToString().ToLower();*@
+        var userAuthorized = true;
+        if(userAuthorized)
+        {
+            var urlString = '@Url.Action("LoadMainMenu", "Shared", new { area = "" })';
+            $.get(urlString, function (result) {
+                $("#sideBarBox").html(result);
+            });
+        }
+
+        $('[data-toggle="offcanvas"]').click(function () {
+            $('.row-offcanvas').css('active');//TODO use toggleClass - as of now its not working
+        });
+
+        $(document).on('click', function (e) {
+            if(e.target != undefined && e.target != null){
+                if(e.target.id != 'homeBtn' && e.target.id != 'searchBar' && e.target.id != 'searchBtn')
+                {
+                    if($('.row-offcanvas').length && $('.row-offcanvas').hasClass('active')){
+                        $('.row-offcanvas').removeClass('active');
+                    }
+                }
+                if(e.target.className == "" || e.target.className.indexOf("subMenuIcon") < 0)
+                {
+                    if($('.dropMenu').length)//if div exist with this class
+                        $('.dropMenu').attr('class', "noShow");
+                }
+            }
+        });
+    });
+        });
+
+        function Validate() {
+            //if ($.trim($('#searchBar').val()) == "") {
+            //    alert('Please enter valid data');
+            //    $('#searchBar').val('');
+            //    return false;
+            //}
+
+
+        }
+
+
+    </script>
+    <script>
+    
+    </script>
+    @*@if (Valic.AdvisorToolSuite.AppConstants.isAnalyticsEnabled)
+        {
+            <script type="text/javascript">_satellite.pageBottom();</script>
+        }*@
+</body>
+</html>

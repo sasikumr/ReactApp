@@ -1,0 +1,51 @@
+﻿.mainStyle {
+    overflow: auto;
+}
+.customStyle {
+    height: 30px;
+}
+.pad20 {
+    padding: 20px;
+    /*border:1px solid #cccccc;*/
+}
+#tabHeader {
+    width: 100%;
+    height: 30px;
+}
+
+.tabBox {
+    padding: 0px;
+}
+
+.tabList {
+    position: relative;
+    left: -25px;
+    top: 6px;
+    list-style-type: none;
+    font-size: .9em;
+}
+
+.tabListItem {
+    display: inline;
+    cursor: pointer;
+    padding: 5px;
+    color: #1f7bb7;
+    background-color: #ffffff;
+    font-weight: 200;
+}
+
+    .tabListItem:hover {
+        background-color: #ffffff;
+        cursor: pointer;
+        color: #1f7bb7;
+    }
+
+.activeTab {
+    background-color: #ffffff;
+    color: #76777B;
+    border-bottom: 3px solid #e36f1e;
+}
+
+.nobr {
+    white-space:nowrap;
+}

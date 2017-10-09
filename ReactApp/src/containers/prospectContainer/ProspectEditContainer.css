@@ -1,0 +1,56 @@
+﻿.showPartial{
+    opacity:0.4;
+}
+.showFull{
+    opacity:1;
+}
+.form .form-errors {
+    width: 100%;
+    margin: 0 auto;
+    max-width: 480px;
+}
+
+
+form .form-errors {
+    font-size: 14px;
+    color: #c41230;
+}
+
+.form-errors p {
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+form .form-errors p {
+    display: block;
+}
+
+.form-error {
+    color: #c41230;
+    font-size: 13px;
+    line-height: 13px;
+}
+
+.form-label, label {
+    display: inline-block;
+    margin-bottom: 5px;
+    text-align: left;
+    font-family: FuturaPTWebMedium,sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    line-height: 1.25em;
+    font-size: 16px;
+}
+
+.form-label, form .form-errors, label, .react-tabHeader, .ssn {
+    text-transform: uppercase;
+}
+
+.form-label, label {
+    letter-spacing: .07em;
+}
+
+
+label {
+    cursor: default;
+}
