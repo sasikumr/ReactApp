@@ -1,0 +1,107 @@
+.mainStyle {
+    overflow: auto;
+}
+.customStyle {
+    height: 30px;
+}
+.pad20 {
+    padding: 20px;
+    /*border:1px solid #cccccc;*/
+}
+#tabHeader {
+    width: 100%;
+    height: 30px;
+}
+
+.tabBox {
+    padding: 0px;
+}
+
+.tabList {
+    position: relative;
+    left: -25px;
+    top: 6px;
+    list-style-type: none;
+    font-size: .9em;
+}
+
+.tabListItem {
+    display: inline;
+    cursor: pointer;
+    padding: 5px;
+    color: #1f7bb7;
+    background-color: #ffffff;
+    font-weight: 200;
+}
+
+    .tabListItem:hover {
+        background-color: #ffffff;
+        cursor: pointer;
+        color: #1f7bb7;
+    }
+
+.activeTab {
+    background-color: #ffffff;
+    color: #76777B;
+    border-bottom: 3px solid #e36f1e;
+}
+
+.nobr {
+    white-space:nowrap;
+}.showPartial{
+    opacity:0.4;
+}
+.showFull{
+    opacity:1;
+}
+.form .form-errors {
+    width: 100%;
+    margin: 0 auto;
+    max-width: 480px;
+}
+
+
+form .form-errors {
+    font-size: 14px;
+    color: #c41230;
+}
+
+.form-errors p {
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+form .form-errors p {
+    display: block;
+}
+
+.form-error {
+    color: #c41230;
+    font-size: 13px;
+    line-height: 13px;
+}
+
+.form-label, label {
+    display: inline-block;
+    margin-bottom: 5px;
+    text-align: left;
+    font-family: FuturaPTWebMedium,sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    line-height: 1.25em;
+    font-size: 16px;
+}
+
+.form-label, form .form-errors, label, .react-tabHeader, .ssn {
+    text-transform: uppercase;
+}
+
+.form-label, label {
+    letter-spacing: .07em;
+}
+
+
+label {
+    cursor: default;
+}
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzaXRlLmNzcyIsInNvdXJjZVJvb3QiOiIifQ==*/

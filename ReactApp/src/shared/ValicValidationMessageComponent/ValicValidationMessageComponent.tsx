@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 class ValicValidationMessage extends React.Component<any,any>{   
     render(){      
         const {formErrors}   = this.props;
-        return ( <div className='form-errors'>
-    {formErrors !== undefined? formErrors.map((field, i) => {
+        return (<div className='form-errors'>
+            {formErrors !== undefined && formErrors.length >0 ? formErrors.map((field, i) => {
       if(field.errorMessage !== ""){
         return (          
 		  <p  key={i}><label key={i} className="tooltip-text form-error">{ field.errorMessage} </label></p>

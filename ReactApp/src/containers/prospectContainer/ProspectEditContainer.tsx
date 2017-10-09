@@ -42,46 +42,44 @@ export class ProspectEditContainer extends Component<any, any> {
     }
     render() {
         const { formErrors, isLoading } = this.props;
-        if (formErrors !== undefined && formErrors !== null) {
+        if (formErrors !== undefined && formErrors !== null && formErrors.length >0) {
             let errors = formErrors.filter(error => error.errorMessage !== '' && error.fieldName === '');
             //console.log(errors);
             if (errors.length > 0) {
                 //throw new Error("failed component")
                 return (<AppError error={errors[0].errorMessage} />)
-                
+
+            }
         }
+
+        return (
+
+            <div>               
+                <ValicValidationMessage formErrors={formErrors} className="form-errors" />
+                <form>
+                    <TabContainer>
+                        <Tab name="Personal Information" isDefaultTab>
+                            <PersonalInformationContainer />
+                        </Tab>
+                        <Tab name="Investor Profile">
+                            <InvestorProfileContainer />
+                        </Tab>
+                        <Tab name="Income Source">
+                            <IncomeSourceContainer />
+                        </Tab>
+                    </TabContainer>
+                    <button type="submit" className="btn btn-primary" onClick={(e) => {
+                        e.preventDefault();
+                        this.props.saveProspect(e);
+                    }} >Save</button>
+                    &nbsp;<button type="button" className="btn btn-default" onClick={(e) => {
+                        e.preventDefault();
+                        this.props.cancelProspect();
+                    }} >Cancel</button>
+                </form>
+            </div>
+        );
     }
-
-    return (
-
-        <div>
-    {isLoading ? <Loader /> : '' }
-    <ValicValidationMessage formErrors={formErrors} className="form-errors" />
-    <form className={isLoading ? 'showPartial':'showFull'}>
-                
-                <TabContainer>
-                    <Tab name="Personal Information" isDefaultTab>
-                        <PersonalInformationContainer />
-                    </Tab>
-                    <Tab name="Investor Profile">
-                        <InvestorProfileContainer />
-                    </Tab>
-                    <Tab name="Income Source">
-                        <IncomeSourceContainer />
-                    </Tab>
-                </TabContainer>
-                <button type="submit" className="btn btn-primary" onClick={(e) => {
-                    e.preventDefault();
-                    this.props.saveProspect(e);
-                }} >Save</button>
-                &nbsp;<button type="button" className="btn btn-default" onClick={(e) => {
-                    e.preventDefault();
-                    this.props.cancelProspect();
-                }} >Cancel</button>
-            </form>
-        </div>
-    );
-                }
     static propTypes = {
         saveProspect: PropTypes.func.isRequired,
         componentDidMount: PropTypes.func.isRequired,
@@ -121,7 +119,7 @@ const mapDispatchToProps = (dispatch) => ({
         dispatch(LoaderStore.actionCreators.loaderBegin());
         dispatch(ProspectStore.actionCreatorsAgentCode.setAgentCode((window as any).__agentCode__));
         dispatch(StateStore.actionCreators.fetchStateRequest());
-        dispatch(ProspectStore.actionCreators.fetchProspectRequest((window as any).__PROSPECTID__));
+        dispatch(ProspectStore.actionCreators.fetchProspectRequest((window as any).__PROSPECTID__));        
     }
 })
 
@@ -136,7 +134,7 @@ interface prospectProps {
 
 
 
-const AppError = (props:any) => {
+const AppError = (props: any) => {
     return (<div>
         Something went wrong!!! {props.error}
     </div>);

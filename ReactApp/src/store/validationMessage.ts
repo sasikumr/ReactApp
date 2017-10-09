@@ -60,5 +60,5 @@ export const reducer: Reducer<ValidatioNmessageState[]> = (state: ValidatioNmess
 
     // For unrecognized actions (or in cases where actions have no effect), must return the existing state
     //  (or default initial state if none was supplied)
-    return state || Object.assign({},null);
+    return state || Object.assign({}, null);
 };

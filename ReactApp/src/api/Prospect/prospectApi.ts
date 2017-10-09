@@ -1,9 +1,14 @@
-﻿import * as ProspectAction from '../../actions/ProspectAction';
+﻿//import * as ProspectAction from '../../actions/ProspectAction';
 import  ApiUrl  from '../apiUrl.dev';
 import fetch from 'isomorphic-fetch';
 import { agileneturl } from '../../constants';
-import * as ValidationMessage from '../../actions/ValidationMessageAction';
+//import * as ValidationMessage from '../../actions/ValidationMessageAction';
 import * as ActionTypes from '../../constants/ActionTypes';
+import * as LoaderAction from '../../store/Loader';
+import * as ValidationMessageAction from '../../store/validationMessage';
+import * as ProspectAction from '../../store/Prospect';
+import * as StateAction from '../../store/States';
+
 //import errorhandler from 'errorhandler';
 //import connect from 'connect';
 interface Prospect{
@@ -19,7 +24,8 @@ const participantUrl = ApiUrl.participantUrl;
 export const ProspectMiddleWare = (store:any) => (next:any) => (action:any) => {
     switch (action.type) {
         case ActionTypes.GET_PROSPECT_REQUEST:
-            next(ProspectAction.loaderBegin());
+            //next(ProspectAction.loaderBegin());
+            next(LoaderAction.actionCreators.loaderBegin());
             return fetch(`${participantUrl}prospect/${action.id}`, {
                 method: 'GET'
             })
@@ -153,32 +159,46 @@ export const ProspectMiddleWare = (store:any) => (next:any) => (action:any) => {
                     else {
                         prospect.isNew = true;
                     }
-                    next(ProspectAction.fetchProspectSuccess(prospect))
-                    next(ProspectAction.loaderComplete());
+                    //next(ProspectAction.fetchProspectSuccess(prospect))
+                    //next(ProspectAction.loaderComplete());
+                    next(ProspectAction.actionCreators.fetchProspectSuccess(prospect));
+                    next(LoaderAction.actionCreators.loaderEnd());
                     //return Promise.resolve();
                 })
                 .catch(error => {
-                    next(ValidationMessage.AddErrorMessage('', "Unable to get prospect"));
-                    next(ProspectAction.fetchProspectFailed());
-                    next(ProspectAction.loaderComplete());
+                   // next(ValidationMessage.AddErrorMessage('', "Unable to get prospect"));
+                    //next(ProspectAction.fetchProspectFailed());
+                    //next(ProspectAction.loaderComplete());
+
+                    next(ValidationMessageAction.actionCreators.addErrorMessage('', "Unable to get prospect"));
+                    next(ProspectAction.actionCreators.fetchProspectFailed());
+                    next(LoaderAction.actionCreators.loaderEnd());
+
                     //console.log(error);
                     //return Promise.resolve();
                 });
             //break;
         case ActionTypes.GET_STATES_REQUEST:
-            next(ProspectAction.loaderBegin());
+            //next(ProspectAction.loaderBegin());
+            next(LoaderAction.actionCreators.loaderBegin());
             return fetch(`${advisorUrl}advisor/states`)
                 .then(response => response.json())
                 .then(json => {
-                    next(ProspectAction.fetchStatesSuccess(json["$values"]))
-                    next(ProspectAction.loaderComplete());
+                    //next(ProspectAction.fetchStatesSuccess(json["$values"]))
+                    //next(ProspectAction.loaderComplete());
+                    next(StateAction.actionCreators.fetchStateSuccess(json["$values"]))
+                    next(LoaderAction.actionCreators.loaderEnd());
 
                 })
                 .catch(error => {
                     console.log('request states failed', error);
-                    next(ProspectAction.loaderComplete());
-                    next(ValidationMessage.AddErrorMessage('', "Unable to get states"));
-                    next(ProspectAction.fetchStatesFailed());
+                    //next(ProspectAction.loaderComplete());
+                    //next(ValidationMessage.AddErrorMessage('', "Unable to get states"));
+                    //next(ProspectAction.fetchStatesFailed());
+                    next(ValidationMessageAction.actionCreators.addErrorMessage('', "Unable to get states"));
+                    next(StateAction.actionCreators.fetchStatesFailed());
+                    next(LoaderAction.actionCreators.loaderEnd());
+
                     //throw error;
                     //return error;
                 });
@@ -186,7 +206,8 @@ export const ProspectMiddleWare = (store:any) => (next:any) => (action:any) => {
         case ActionTypes.UPDATE_PROSPECT_REQUEST:
             let state = store.getState();
             let prospect = state.ProspectDetail;
-            next(ProspectAction.loaderBegin());
+            //next(ProspectAction.loaderBegin());
+            next(LoaderAction.actionCreators.loaderBegin());
             let validForm = true as any;
 
             state.errors.forEach(function (error, index) {
@@ -290,7 +311,8 @@ export const ProspectMiddleWare = (store:any) => (next:any) => (action:any) => {
                     body: JSON.stringify(prospectData)
                 })
                     .then((response:any) => {
-                        next(ProspectAction.loaderComplete());
+                        //next(ProspectAction.loaderComplete());
+                        next(LoaderAction.actionCreators.loaderEnd());
                         if (response.status >= 200 && response.status < 300) {
                             (window as any).location = agileneturl + "/Dashboard/Advisor/ClientProspectListing.aspx?agentId=03499";
                         } else {
@@ -300,13 +322,16 @@ export const ProspectMiddleWare = (store:any) => (next:any) => (action:any) => {
                         }
                     })
                     .catch(error => {
-                        next(ValidationMessage.AddErrorMessage('', "Unable to update prospect"));
-                        next(ProspectAction.loaderComplete());
+                        //next(ValidationMessage.AddErrorMessage('', "Unable to update prospect"));
+                        //next(ProspectAction.loaderComplete());
+                        next(ValidationMessageAction.actionCreators.addErrorMessage('', "Unable to update prospect"));                        
+                        next(LoaderAction.actionCreators.loaderEnd());
+
                     })
             }
             else {
-                next(ProspectAction.loaderComplete());
-                next(ValidationMessage.AddErrorMessage('', "Unable to update prospect"));
+                next(ValidationMessageAction.actionCreators.addErrorMessage('', "Unable to update prospect"));
+                next(LoaderAction.actionCreators.loaderEnd());
             }
             break;
         default:
