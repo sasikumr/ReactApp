@@ -100,11 +100,13 @@ const mapDispatchToProps = (dispatch) => ({
             validateFormField(inputField);
 
             if (inputField.isValid === false || inputField.isFormatValid === false) {
-                dispatch(AddErrorMessage(inputField.name, inputField.errorMessage));
+                //dispatch(AddErrorMessage(inputField.name, inputField.errorMessage));
+                dispatch(ValidationMessageStore.actionCreators.addErrorMessage(inputField.name, inputField.errorMessage));
                 $(inputField).parent().addClass('has-error has-feedback');
             }
             else {
-                dispatch(AddErrorMessage(inputField.name, ''));
+                //dispatch(AddErrorMessage(inputField.name, ''));
+                dispatch(ValidationMessageStore.actionCreators.addErrorMessage(inputField.name, ''));
                 $(inputField).parent().removeClass('has-error has-feedback');
             }
 
