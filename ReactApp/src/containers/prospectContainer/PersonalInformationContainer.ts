@@ -2,21 +2,26 @@
 import { connect } from 'react-redux';
 import PersonalInformation from '../../components/ProspectComponent/PersonalInformationComponent';
 import { validateFormField } from '../../shared/utility/Utility';
-import { onInputChange as onChange } from '../../actions/ProspectAction';
-import { AddErrorMessage } from '../../actions/ValidationMessageAction';
+//import { onInputChange as onChange } from '../../actions/ProspectAction';
+import * as  ProspectAction from '../../store/Prospect';
+import * as ValidationMessagAction from '../../store/validationMessage';
+//import { AddErrorMessage } from '../../actions/ValidationMessageAction';
 
 export const mapDispatchToProps = (dispatch) => ({
     valicInputChange: function (e) {
         const name = e.target.name;
         let value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
         let inputField = e.target;
-        dispatch(onChange(name, value));
+        //dispatch(onChange(name, value));
+        dispatch(ProspectAction.actionCreators.onInputChange(name, value));
         if (inputField.isValid === false || inputField.isFormatValid === false) {
-            dispatch(AddErrorMessage(name, inputField.errorMessage));
+            //dispatch(AddErrorMessage(name, inputField.errorMessage));
+            dispatch(ValidationMessagAction.actionCreators.addErrorMessage(name, inputField.errorMessage));
             $(inputField).parent().addClass('has-error has-feedback');
         }
         else {
-            dispatch(AddErrorMessage(name, ''));
+            //dispatch(AddErrorMessage(name, ''));
+            dispatch(ValidationMessagAction.actionCreators.addErrorMessage(name, ''));
             $(inputField).parent().removeClass('has-error has-feedback');
         }
     },
@@ -24,15 +29,18 @@ export const mapDispatchToProps = (dispatch) => ({
         let name = e.target.name;
         let value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
         let inputField = e.target;
-        dispatch(onChange(name, value));
+        //dispatch(onChange(name, value));
+        dispatch(ProspectAction.actionCreators.onInputChange(name, value));
         validateFormField(inputField);
 
         if (inputField.isValid === false || inputField.isFormatValid === false) {
-            dispatch(AddErrorMessage(name, inputField.errorMessage));
+            //dispatch(AddErrorMessage(name, inputField.errorMessage));
+            dispatch(ValidationMessagAction.actionCreators.addErrorMessage(name, inputField.errorMessage));
             $(inputField).parent().addClass('has-error has-feedback');
         }
         else {
-            dispatch(AddErrorMessage(name, ''));
+            //dispatch(AddErrorMessage(name, ''));
+            dispatch(ValidationMessagAction.actionCreators.addErrorMessage(name, ''));
             $(inputField).parent().removeClass('has-error has-feedback');
         }
 

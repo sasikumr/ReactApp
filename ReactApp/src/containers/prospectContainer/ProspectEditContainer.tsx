@@ -54,7 +54,8 @@ export class ProspectEditContainer extends Component<any, any> {
 
         return (
 
-            <div>               
+            <div>
+                {(isLoading as boolean) == true ? <Loader /> : ''}
                 <ValicValidationMessage formErrors={formErrors} className="form-errors" />
                 <form>
                     <TabContainer>

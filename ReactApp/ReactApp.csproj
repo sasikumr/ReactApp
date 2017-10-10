@@ -17,10 +17,17 @@
 
   <ItemGroup>
     <!-- Files not to publish (note that the 'dist' subfolders are re-added below) -->
+    <Compile Remove="src\actions\**" />
+    <Compile Remove="src\reducers\**" />
     <Content Remove="src\**" />
+    <EmbeddedResource Remove="src\actions\**" />
+    <EmbeddedResource Remove="src\reducers\**" />
+    <None Remove="src\actions\**" />
+    <None Remove="src\reducers\**" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="src\prospectEdit.tsx" />
     <None Remove="src\store\ValidationMessage.ts" />
   </ItemGroup>
 
