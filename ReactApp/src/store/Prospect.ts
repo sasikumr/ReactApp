@@ -118,6 +118,6 @@ export const agentCodereducer: Reducer<AgentCodeState> = (state: AgentCodeState,
         case "SET_AGENTCODE":
             return action.agentCode;
         default:
-            return "";
+            return state === undefined ? "" : state;
     }
 };
