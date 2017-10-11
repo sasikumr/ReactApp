@@ -77,7 +77,7 @@ class PersonalInformation extends Component<any, any> {
 
                     <div className="form-group col-sm-3">
                         <label htmlFor="dateOfBirth">Date Of Birth</label>
-                        <input type="date" className="form-control" data-dateBirth='true' name="dateOfBirth" value={this.props.dateOfBirth} onChange={this.handleUserInput} />
+                        <input type="date" className="form-control" data-datebirth name="dateOfBirth" value={this.props.dateOfBirth} onChange={this.handleUserInput} />
                     </div>
                     <div className="form-group col-sm-3">
                         <label htmlFor="gender">Gender</label>

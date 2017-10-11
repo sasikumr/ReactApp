@@ -17,12 +17,12 @@ export const actionCreators = {
 };
 
 
-export const reducer: Reducer<LoaderState> = (state: LoaderState, action: KnownAction) => {
+export const reducer: Reducer<boolean> = (state: boolean, action: KnownAction) => {
     switch (action.type) {
         case 'LOADER_BEGIN':
-            return { isLoading: true };
+            return true ;
         case 'LOADER_END':
-            return { isLoading: false };
+            return  false ;
         default:
             // The following line guarantees that every action in the KnownAction union has been covered by a case above
             const exhaustiveCheck: never = action;
@@ -30,5 +30,5 @@ export const reducer: Reducer<LoaderState> = (state: LoaderState, action: KnownA
 
     // For unrecognized actions (or in cases where actions have no effect), must return the existing state
     //  (or default initial state if none was supplied)
-    return state || { isLoading: false };
+    return state === undefined ?false  : state;
 };

@@ -25,7 +25,7 @@ export const reducer: Reducer<StatesState> = (state: StatesState, action: KnownA
             return Object.assign([], state, action.states);      
         case 'GET_STATES_REQUEST':
         case 'GET_STATES_FAILED':
-            return Object.assign([], null);
+            return Object.assign([], null,null);
         default:
             // The following line guarantees that every action in the KnownAction union has been covered by a case above
             const exhaustiveCheck: never = action;
@@ -33,5 +33,5 @@ export const reducer: Reducer<StatesState> = (state: StatesState, action: KnownA
 
     // For unrecognized actions (or in cases where actions have no effect), must return the existing state
     //  (or default initial state if none was supplied)
-    return state || Object.assign([], null) 
+    return state === undefined ? [] : state;
 };

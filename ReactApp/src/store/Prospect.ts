@@ -87,7 +87,7 @@ export const reducer: Reducer<ProspectState> = (state: ProspectState, action: Kn
         case"GET_PROSPECT":
             return Object.assign({}, action.prospect);
         case "GET_PROSPECT_FAILED":
-            return Object.assign({}, null);
+            return Object.assign({}, null, null);
        
         default:
             // The following line guarantees that every action in the KnownAction union has been covered by a case above
@@ -96,7 +96,7 @@ export const reducer: Reducer<ProspectState> = (state: ProspectState, action: Kn
 
     // For unrecognized actions (or in cases where actions have no effect), must return the existing state
     //  (or default initial state if none was supplied)
-    return state || Object.assign({}, null)
+    return state === undefined ? {} : state;
 };
 
 
@@ -113,7 +113,7 @@ export const actionCreatorsAgentCode = {
 
 type KnownActionAgentCode = AgentCode
 
-export const agentCodereducer: Reducer<AgentCodeState> = (state: AgentCodeState, action: KnownActionAgentCode) => {
+export const agentCodereducer: Reducer<string> = (state: string, action: KnownActionAgentCode) => {
     switch (action.type) {
         case "SET_AGENTCODE":
             return action.agentCode;

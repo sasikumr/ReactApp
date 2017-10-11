@@ -43,7 +43,7 @@ const validateFormat = (input:any) => {
             if (input.validity !== undefined && (input.validity.badInput === true || input.validity.valid === false)) {
                 return false;
             }
-            if ($(input).attr('data-dateBirth') !== undefined && input.value !== "" && input.valueAsDate >= new Date()) {
+            if ($(input).attr('data-datebirth') !== undefined && input.value !== "" && input.valueAsDate >= new Date()) {
                 return false;
             }
             if (input.value !== "" && (input.valueAsDate.getFullYear() >= 2099 || input.valueAsDate.getFullYear() <= 1900)) {

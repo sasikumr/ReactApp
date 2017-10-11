@@ -55,7 +55,7 @@ export class ProspectEditContainer extends Component<any, any> {
         return (
 
             <div>
-                {(isLoading as boolean) == true ? <Loader /> : ''}
+                {isLoading == true ? <Loader /> : ''}
                 <ValicValidationMessage formErrors={formErrors} className="form-errors" />
                 <form>
                     <TabContainer>
@@ -119,10 +119,11 @@ const mapDispatchToProps = (dispatch) => ({
         }
     },
     componentDidMount: function () {
-        dispatch(LoaderStore.actionCreators.loaderBegin());
-        dispatch(ProspectStore.actionCreatorsAgentCode.setAgentCode((window as any).__agentCode__));
-        dispatch(StateStore.actionCreators.fetchStateRequest());
-        dispatch(ProspectStore.actionCreators.fetchProspectRequest((window as any).__PROSPECTID__));        
+        //dispatch(LoaderStore.actionCreators.loaderBegin());
+        //dispatch(ProspectStore.actionCreatorsAgentCode.setAgentCode((window as any).__agentCode__));
+        //dispatch(StateStore.actionCreators.fetchStateRequest());
+        //dispatch(ProspectStore.actionCreators.fetchProspectRequest((window as any).__PROSPECTID__));        
+        
     }
 })
 
